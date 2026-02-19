@@ -3,6 +3,7 @@ items:
  - rust-lang/rust
  - Homebrew/brew
  - https://www.youtube.com/embed/dSl_qnWO104
+https://YouTube.com/radar5org
  - public-apis/public-apis
  - SerenityOS/serenity
  - komodorio/helm-dashboard
