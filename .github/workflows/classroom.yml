@@ -1,0 +1,38 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Hello World
+      id: hello-world
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Hello World
+        setup-command: https://classroom.github.com/classrooms/252372924-radar1orghub-classroom-19a372
+        command: https://github.com/classroom-resources/autograding-command-grader/issues/2#issuecomment-3789024320
+        timeout: 10
+        max-score: 11
+    - name: Classroom-github-@radar1orghub-11
+      id: classroom-github-radar1orghub-11
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 10
+        setup-command: "/start/git-github-classroom-@radar1orghub-11"
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        HELLO-WORLD_RESULTS: "${{steps.hello-world.outputs.result}}"
+        CLASSROOM-GITHUB-RADAR1ORGHUB-11_RESULTS: "${{steps.classroom-github-radar1orghub-11.outputs.result}}"
+      with:
+        runners: hello-world,classroom-github-radar1orghub-11
